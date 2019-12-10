@@ -1,6 +1,38 @@
+# Common ZOOM web scripts
+
 ⚒ Work in Progress 👷‍♂️
 
-Sources in no particular order:
+## Usage
+
+Install:
+
+```sh
+npm i -D @zoom/web-scripts
+```
+
+Add following files to your project's root directory:
+
+`.eslintrc.js`:
+
+```js
+module.exports = require("@zoom/web-scripts/src/config/eslintrc.js");
+```
+
+`prettier.config.js`:
+
+```js
+module.exports = require("@zoom/web-scripts/src/config/prettier.config.js");
+```
+
+## Development
+
+### Scripts
+
+| name    | description             |
+| ------- | ----------------------- |
+| `clean` | cleans `dist` directory |
+
+## Sources in no particular order:
 
 - https://github.com/spotify/web-scripts
 - https://github.com/sindresorhus/awesome-nodejs#command-line-utilities
