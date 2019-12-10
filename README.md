@@ -15,22 +15,22 @@ Add following files to your project's root directory:
 `.eslintrc.js`:
 
 ```js
-module.exports = require("@zoom/web-scripts/src/config/eslintrc.js");
+module.exports = require("@zoom/web-scripts/lib/configs/eslintrc.js");
 ```
 
 `prettier.config.js`:
 
 ```js
-module.exports = require("@zoom/web-scripts/src/config/prettier.config.js");
+module.exports = require("@zoom/web-scripts/lib/configs/prettier.config.js");
 ```
 
 ## Development
 
 ### Scripts
 
-| name    | description             |
-| ------- | ----------------------- |
-| `clean` | cleans `dist` directory |
+| name    | description              |
+| ------- | ------------------------ |
+| `clean` | cleans `./lib` directory |
 
 ## Sources in no particular order:
 
