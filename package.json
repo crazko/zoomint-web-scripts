@@ -1,10 +1,10 @@
 {
-  "name": "@zoom/web-scripts",
+  "name": "@zoomint/web-scripts",
   "private": true,
   "version": "0.1.0",
-  "description": "Common ZOOM scripts",
+  "description": "Common web scripts",
   "bin": {
-    "zoom-scripts": "./bin/run"
+    "zoomint-scripts": "./bin/run"
   },
   "main": "lib/index.js",
   "engines": {
@@ -40,7 +40,7 @@
   ],
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "zoom-scripts",
+    "bin": "zoomint-scripts",
     "plugins": [
       "@oclif/plugin-help"
     ]
