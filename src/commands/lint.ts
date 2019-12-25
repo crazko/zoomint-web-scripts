@@ -1,5 +1,4 @@
 import { Command, flags } from '@oclif/command';
-import { hasConfig } from '@spotify/web-scripts-utils';
 import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { ESLINT_CONFIG, CONSUMING_ROOT } from '../paths';
