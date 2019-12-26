@@ -2,6 +2,13 @@
 
 ⚒ Work in Progress 👷‍♂️
 
+TODO:
+
+- eslintignore
+- husky
+- tests
+- audit
+
 ## Usage
 
 Install:
@@ -10,18 +17,42 @@ Install:
 npm i -D @zoomint/web-scripts
 ```
 
-Add following files to your project's root directory:
+Add the scripts and commit hooks to your `package.json`:
 
-`.eslintrc.js`:
-
-```js
-module.exports = require('@zoomint/web-scripts/lib/configs/eslintrc.js');
+```json
+{
+  "scripts": {
+    "format": "web-scripts format",
+    "lint": "web-scripts lint",
+    "test": "web-scripts test"
+  }
+  // "husky": {
+  //   "hooks": {
+  //     "commit-msg": "web-scripts commitmsg",
+  //     "pre-commit": "web-scripts precommit"
+  //   }
+  // }
+}
 ```
+
+Add following files to your project's root directory:
 
 `prettier.config.js`:
 
 ```js
 module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config.js');
+```
+
+## Extending default configuration
+
+Add `.eslintrc.js`:
+
+```js
+module.exports = {
+  extends: [
+    './node_modules/@zoomint/web-scripts/lib/configs/eslintrc.js',
+  ],
+};
 ```
 
 ## Development
@@ -30,7 +61,12 @@ module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config.js');
 
 | name    | description              |
 | ------- | ------------------------ |
+| `build` | builds the web scripts   |
 | `clean` | cleans `./lib` directory |
+| `lint`  | runs linter              |
+| `test`  | runs tests               |
+
+---
 
 ## Sources in no particular order:
 

@@ -1,4 +1,4 @@
-import { Command, flags } from '@oclif/command';
+import { Command } from '@oclif/command';
 import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { ESLINT_CONFIG, CONSUMING_ROOT } from '../paths';
@@ -6,43 +6,33 @@ import { ESLINT_CONFIG, CONSUMING_ROOT } from '../paths';
 export default class Lint extends Command {
   static description = 'Run ESlint';
 
-  // static flags = {
-  //   help: flags.help({char: 'h'}),
-  //   // flag with a value (-n, --name=VALUE)
-  //   name: flags.string({char: 'n', description: 'name to print'}),
-  //   // flag with no value (-f, --force)
-  //   force: flags.boolean({char: 'f'}),
-  // }
-
-  // static args = [{ name: "file" }];
-
-  // this makes the parser not fail when it receives invalid arguments
   static strict = false;
 
   async run() {
-    const { argv, args, flags } = this.parse(Lint);
+    const { argv } = this.parse(Lint);
 
-    const explorer = cosmiconfigSync('eslint', { stopDir: process.cwd() });
-    let result = explorer.search();
+    const explorer = cosmiconfigSync('eslint', { stopDir: CONSUMING_ROOT });
+    let configResult = explorer.search();
 
-    if (result === null) {
-      result = explorer.load(ESLINT_CONFIG);
+    if (configResult === null) {
+      configResult = explorer.load(ESLINT_CONFIG);
     }
 
-    if (result) {
-      const config = result.filepath;
-      const s = argv.join(' ');
+    if (configResult) {
+      const config = configResult.filepath;
+      const userInputArguments = argv.join(' ');
 
-      // if (args.file && flags.force) {
-      // this.log(`you input --force and --file: ${args.file}`);
-      // }
+      const command = `npx --no-install eslint ${CONSUMING_ROOT} --ext js,ts,jsx,tsx --config ${config} ${userInputArguments}`;
+
+      this.log(command);
+
       try {
-        const foo = await execa.command(
-          `npx --no-install eslint ${s} ${CONSUMING_ROOT}`,
-          { env: { FORCE_COLOR: 'true' } }
-          // {stdio: 'inherit',}
+        const subprocess = await execa.command(
+          command,
+          // { env: { FORCE_COLOR: 'true' } }
+          { stdio: 'inherit' }
         );
-        this.log(foo.stdout);
+        this.log(subprocess.stdout);
       } catch ({ stdout, stderr, exitCode }) {
         if (stderr) {
           this.error(stderr, { code: exitCode });
