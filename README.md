@@ -15,13 +15,13 @@ Add following files to your project's root directory:
 `.eslintrc.js`:
 
 ```js
-module.exports = require("@zoomint/web-scripts/lib/configs/eslintrc.js");
+module.exports = require('@zoomint/web-scripts/lib/configs/eslintrc.js');
 ```
 
 `prettier.config.js`:
 
 ```js
-module.exports = require("@zoomint/web-scripts/lib/configs/prettier.config.js");
+module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config.js');
 ```
 
 ## Development
