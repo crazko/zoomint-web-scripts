@@ -1,28 +1,28 @@
 import { Command } from '@oclif/command';
 import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
-import { CONSUMING_ROOT, ESLINT_CONFIG } from '../paths';
+import { CONSUMING_ROOT, PRETTIER_CONFIG } from '../paths';
 
-export default class Lint extends Command {
-  static description = 'Run ESlint';
+export default class Format extends Command {
+  static description = 'Format code using Prettier';
 
   static strict = false;
 
   async run() {
-    const { argv } = this.parse(Lint);
+    const { argv } = this.parse(Format);
 
-    const explorer = cosmiconfigSync('eslint', { stopDir: CONSUMING_ROOT });
+    const explorer = cosmiconfigSync('prettier', { stopDir: CONSUMING_ROOT });
     let configResult = explorer.search();
 
     if (configResult === null) {
-      configResult = explorer.load(ESLINT_CONFIG);
+      configResult = explorer.load(PRETTIER_CONFIG);
     }
 
     if (configResult) {
       const config = configResult.filepath;
       const userInputArguments = argv.join(' ');
 
-      const command = `npx --no-install eslint ${CONSUMING_ROOT} --ext js,ts,jsx,tsx --config ${config} ${userInputArguments}`;
+      const command = `npx --no-install prettier --write --config ${config} ${userInputArguments} src/**/*.{js,jsx,ts,tsx,json,css,scss}`;
 
       this.log(command);
 

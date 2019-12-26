@@ -4,7 +4,7 @@
 
 TODO:
 
-- eslintignore
+- \*ignore files support
 - husky
 - tests
 - audit
@@ -49,9 +49,7 @@ Add `.eslintrc.js`:
 
 ```js
 module.exports = {
-  extends: [
-    './node_modules/@zoomint/web-scripts/lib/configs/eslintrc.js',
-  ],
+  extends: ['./node_modules/@zoomint/web-scripts/lib/configs/eslintrc.js'],
 };
 ```
 
@@ -59,12 +57,13 @@ module.exports = {
 
 ### Scripts
 
-| name    | description              |
-| ------- | ------------------------ |
-| `build` | builds the web scripts   |
-| `clean` | cleans `./lib` directory |
-| `lint`  | runs linter              |
-| `test`  | runs tests               |
+| name     | description              |
+| -------- | ------------------------ |
+| `build`  | builds the web scripts   |
+| `clean`  | cleans `./lib` directory |
+| `format` | formats source files     |
+| `lint`   | runs linter              |
+| `test`   | runs tests               |
 
 ---
 
