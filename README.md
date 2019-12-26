@@ -7,7 +7,6 @@ TODO:
 - \*ignore files support
 - husky
 - tests
-- audit
 
 ## Usage
 
@@ -22,6 +21,7 @@ Add the scripts and commit hooks to your `package.json`:
 ```json
 {
   "scripts": {
+    "audit": "web-scripts audit",
     "format": "web-scripts format",
     "lint": "web-scripts lint",
     "test": "web-scripts test"
@@ -59,6 +59,7 @@ module.exports = {
 
 | name     | description              |
 | -------- | ------------------------ |
+| `audit`  | runs a security audit    |
 | `build`  | builds the web scripts   |
 | `clean`  | cleans `./lib` directory |
 | `format` | formats source files     |

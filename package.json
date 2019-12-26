@@ -45,6 +45,7 @@
     ]
   },
   "scripts": {
+    "audit": "node ./bin/run audit",
     "build": "tsc --build",
     "postbuild": "copyfiles --flat src/configs/* lib/configs",
     "clean": "rimraf lib",
