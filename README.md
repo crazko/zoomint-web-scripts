@@ -6,7 +6,6 @@ TODO:
 
 - \*ignore files support
 - husky
-- tests
 
 ## Usage
 
@@ -40,7 +39,7 @@ Add following files to your project's root directory:
 `prettier.config.js`:
 
 ```js
-module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config.js');
+module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config');
 ```
 
 ## Extending default configuration
@@ -50,7 +49,16 @@ Add `.eslintrc.js`:
 ```js
 module.exports = {
   extends: ['./node_modules/@zoomint/web-scripts/lib/configs/eslintrc.js'],
+  // ...
 };
+```
+
+Add `jest.config.js`:
+
+```js
+module.exports = Object.assign({}, require('@zoomint/web-scripts/lib/configs/jest.config'), {
+  // ...
+});
 ```
 
 ## Development

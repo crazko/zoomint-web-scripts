@@ -20,11 +20,15 @@
     "eslint-config-esnext": "^4.0.0",
     "eslint-config-prettier": "^6.8.0",
     "execa": "^3.4.0",
+    "jest": "^24.9.0",
     "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
     "tslib": "^1.10.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
+    "@oclif/test": "^1.2.5",
+    "@types/jest": "^24.0.25",
     "@types/node": "^10.17.7",
     "copyfiles": "^2.1.1",
     "rimraf": "^3.0.0",
@@ -53,7 +57,7 @@
     "lint": "node ./bin/run lint",
     "postpack": "rimraf oclif.manifest.json",
     "prepack": "npm run clean && npm run build && oclif-dev manifest",
-    "test": "echo NO TESTS",
+    "test": "node ./bin/run test",
     "posttest": "npm run lint"
   }
 }

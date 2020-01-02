@@ -2,8 +2,12 @@ const path = require('path');
 
 module.exports = {
   rootDir: path.join(process.cwd(), 'src'),
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+
+  // Code Coverage
   collectCoverageFrom: ['**/*.{js,jsx,ts,tsx}', '!**/*.d.ts'],
-  coverageReporters: ['text', 'html'],
+  coverageReporters: ['lcov', 'text-summary'],
   coverageThreshold: {
     global: {
       branches: 70,
@@ -12,9 +16,4 @@ module.exports = {
       statements: 70,
     },
   },
-  // TODO: 👇
-  snapshotSerializers: ['enzyme-to-json/serializer'],
-  // snapshotSerializers: ['./node_modules/enzyme-to-json'],
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
 };
