@@ -2,6 +2,7 @@
 /lib
 /tmp
 /node_modules
+/test-results
 
 *-debug.log
 *-error.log
