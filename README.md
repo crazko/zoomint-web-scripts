@@ -44,6 +44,23 @@ module.exports = require('@zoomint/web-scripts/lib/configs/prettier.config');
 
 ## Extending default configuration
 
+### Web Scripts
+
+Add `web-scripts.config.js`:
+
+```js
+module.exports = Object.assign({}, require('@zoomint/web-scripts/lib/configs/web-scripts.config'), {
+  // ...
+});
+```
+
+Options:
+
+| Property name            | Default Value     | Description                                                           |
+| ------------------------ | ----------------- | --------------------------------------------------------------------- |
+| `auditFilename`          | `vulnerabilities` | Filename of the vulnerabilities report                                |
+| `auditLevel`             | `critical`        | Severity level of [`audit command`](https://docs.npmjs.com/cli/audit) |
+| `testResultsDestination` | `./test-results`  | Directory for code coverage, vulnerabilities report                   |
 Add `.eslintrc.js`:
 
 ```js

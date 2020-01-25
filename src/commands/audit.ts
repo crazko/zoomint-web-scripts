@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import { Command, flags } from '@oclif/command';
 import * as execa from 'execa';
+import { cosmiconfigSync } from 'cosmiconfig';
+import { CONSUMING_ROOT, WEB_SCRIPTS_CONFIG } from '../paths';
 
 export default class Audit extends Command {
   static description = 'Report vulnerabilities';
@@ -13,24 +15,35 @@ export default class Audit extends Command {
     const { flags } = this.parse(Audit);
     const report = flags.report;
 
-    const command = ['npm audit', ...(report ? ['--json'] : []), '--audit-level=critical'].join(' ');
+    const explorer = cosmiconfigSync('web-scripts', { stopDir: CONSUMING_ROOT });
+    let configResult = explorer.search();
 
-    this.log(command);
+    if (configResult === null) {
+      configResult = explorer.load(WEB_SCRIPTS_CONFIG);
+    }
 
-    try {
-      await execa.command(command);
-      this.log('No vulnerabilities found');
-    } catch ({ exitCode, stdout }) {
-      if (report) {
-        const filePath = createReport(JSON.parse(stdout));
+    if (configResult) {
+      const { auditFilename, auditLevel, testResultsDestination } = configResult.config;
 
-        this.error(`Vulnerabilities found. Report generated at ${filePath}`, {
-          exit: exitCode,
-        });
+      const command = ['npm audit', ...(report ? ['--json'] : []), `--audit-level=${auditLevel}`].join(' ');
+
+      this.log(command);
+
+      try {
+        await execa.command(command);
+        this.log('No vulnerabilities found');
+      } catch ({ exitCode, stdout }) {
+        if (report) {
+          const filePath = createReport(JSON.parse(stdout), testResultsDestination, auditFilename);
+
+          this.error(`Vulnerabilities found. Report generated at ${filePath}`, {
+            exit: exitCode,
+          });
+        }
+
+        this.log(stdout);
+        this.exit(exitCode);
       }
-
-      this.log(stdout);
-      this.exit(exitCode);
     }
   }
 }
@@ -38,7 +51,7 @@ export default class Audit extends Command {
 /**
  * @return report file destination
  */
-const createReport = (stdout: any, path = './test-results') => {
+const createReport = (stdout: any, path: string, name: string) => {
   const title = 'Vulnerabilities Report';
 
   const getInfoRows = (data: Record<string, number>) =>
@@ -102,7 +115,7 @@ const createReport = (stdout: any, path = './test-results') => {
     fs.mkdirSync(path);
   }
 
-  const filePath = `${path}/vulnerabilities.html`;
+  const filePath = `${path}/${name}.html`;
 
   fs.writeFileSync(filePath, output);
 
