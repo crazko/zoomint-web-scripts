@@ -61,6 +61,9 @@ Options:
 | `auditFilename`          | `vulnerabilities` | Filename of the vulnerabilities report                                |
 | `auditLevel`             | `critical`        | Severity level of [`audit command`](https://docs.npmjs.com/cli/audit) |
 | `testResultsDestination` | `./test-results`  | Directory for code coverage, vulnerabilities report                   |
+
+### Linting
+
 Add `.eslintrc.js`:
 
 ```js
@@ -69,6 +72,8 @@ module.exports = {
   // ...
 };
 ```
+
+### Testing
 
 Add `jest.config.js`:
 
@@ -82,14 +87,14 @@ module.exports = Object.assign({}, require('@zoomint/web-scripts/lib/configs/jes
 
 ### Scripts
 
-| name     | description              |
-| -------- | ------------------------ |
-| `audit`  | runs a security audit    |
-| `build`  | builds the web scripts   |
-| `clean`  | cleans `./lib` directory |
-| `format` | formats source files     |
-| `lint`   | runs linter              |
-| `test`   | runs tests               |
+| `npm run ...` | Description              |
+| ------------- | ------------------------ |
+| `audit`       | runs a security audit    |
+| `build`       | builds the web scripts   |
+| `clean`       | cleans `./lib` directory |
+| `format`      | formats source files     |
+| `lint`        | runs linter              |
+| `test`        | runs tests               |
 
 ---
 
