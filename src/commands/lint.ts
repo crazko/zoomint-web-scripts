@@ -22,7 +22,7 @@ export default class Lint extends Command {
       const config = configResult.filepath;
       const userInputArguments = argv.join(' ');
 
-      const command = `npx --no-install eslint ${CONSUMING_ROOT} --ext js,ts,jsx,tsx --config ${config} ${userInputArguments}`;
+      const command = `npx --no-install eslint ${CONSUMING_ROOT} --ignore-path .gitignore --ext js,ts,jsx,tsx --config ${config} ${userInputArguments}`;
 
       this.log(command);
 
