@@ -22,7 +22,7 @@ export default class Format extends Command {
       const config = configResult.filepath;
       const userInputArguments = argv.join(' ');
 
-      const command = `npx --no-install prettier --write --config ${config} ${userInputArguments} src/**/*.{js,jsx,ts,tsx,json,css,scss}`;
+      const command = `npx --no-install prettier --ignore-path .gitignore --write --config ${config} ${userInputArguments} **/*.{js,jsx,ts,tsx,json,css,scss}`;
 
       this.log(command);
 
