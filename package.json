@@ -51,7 +51,7 @@
     "audit": "node ./bin/run audit",
     "build": "tsc --build",
     "postbuild": "copyfiles --flat src/configs/* lib/configs",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib test-results",
     "format": "node ./bin/run format",
     "lint": "node ./bin/run lint",
     "postpack": "rimraf oclif.manifest.json",
