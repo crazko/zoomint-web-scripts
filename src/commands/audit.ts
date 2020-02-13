@@ -65,7 +65,7 @@ const createReport = (stdout: any, path: string, name: string) => {
         (item) => `<table>
     <caption>${item.module_name}</caption>
     <tr><td colspan="2">${item.overview}</td></tr>
-    <tr><th scope="row">type:</th><td>${item.title}, ${item.severity}</td></tr>
+    <tr><th scope="row">type:</th><td>${item.title}, <strong>${item.severity}</strong></td></tr>
     <tr><th scope="row">recommendation:</th><td>${item.recommendation}</td></tr>
     <tr><th scope="row">vulnerable versions:</th><td><samp>${item.vulnerable_versions}</samp></td></tr>
     <tr><th scope="row">patched versions:</th><td><samp>${item.patched_versions}</samp></td></tr>
