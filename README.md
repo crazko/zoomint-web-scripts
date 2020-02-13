@@ -25,12 +25,6 @@ Add the scripts and commit hooks to your `package.json`:
     "lint": "web-scripts lint",
     "test": "web-scripts test"
   }
-  // "husky": {
-  //   "hooks": {
-  //     "commit-msg": "web-scripts commitmsg",
-  //     "pre-commit": "web-scripts precommit"
-  //   }
-  // }
 }
 ```
 
