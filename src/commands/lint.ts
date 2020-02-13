@@ -3,7 +3,7 @@ import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { CONSUMING_ROOT, ESLINT_CONFIG } from '../paths';
 
-export default class Lint extends Command {
+export class Lint extends Command {
   static description = 'Run ESlint';
 
   static strict = false;

@@ -92,7 +92,8 @@ module.exports = Object.assign({}, require('@zoomint/web-scripts/lib/configs/jes
 
 ---
 
-## Sources in no particular order:
+<details>
+  <summary>Sources in no particular order</summary>
 
 - https://github.com/spotify/web-scripts
 - https://github.com/sindresorhus/awesome-nodejs#command-line-utilities
@@ -103,3 +104,4 @@ module.exports = Object.assign({}, require('@zoomint/web-scripts/lib/configs/jes
 - https://github.com/sw-yx/egghead-cli-workshop
 - https://egghead.io/courses/build-custom-cli-tooling-with-oclif-and-react-ink
 - https://github.com/kentcdodds/kcd-scripts/
+  </details>

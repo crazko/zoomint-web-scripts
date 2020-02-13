@@ -3,7 +3,7 @@ import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { CONSUMING_ROOT, PRETTIER_CONFIG } from '../paths';
 
-export default class Format extends Command {
+export class Format extends Command {
   static description = 'Format code using Prettier';
 
   static strict = false;
