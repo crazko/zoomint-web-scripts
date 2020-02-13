@@ -3,7 +3,7 @@ import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { CONSUMING_ROOT, JEST_CONFIG } from '../paths';
 
-export default class Test extends Command {
+export class Test extends Command {
   static description = 'Run Jest';
 
   static strict = false;
