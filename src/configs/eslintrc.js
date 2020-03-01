@@ -40,6 +40,8 @@ module.exports = {
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-filename-extension.md
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
   },
+  // TODO: this has to be overriden in the top level config
+  // Issue: https://github.com/eslint/eslint/issues/11558, https://github.com/eslint/eslint/pull/12887
   overrides: [
     {
       files: ['**/*.tsx'],
