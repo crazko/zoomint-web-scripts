@@ -1,13 +1,4 @@
-# Common web scripts
-
-⚒ Work in Progress 👷‍♂️
-
-TODO:
-
-- \*ignore files support
-- husky
-
-## Usage
+# Common Web Scripts
 
 Install:
 
@@ -15,7 +6,7 @@ Install:
 npm i -D @zoomint/web-scripts
 ```
 
-Add the scripts and commit hooks to your `package.json`:
+Add following scripts to your `package.json`:
 
 ```json
 {
