@@ -1,14 +1,24 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import { Command, flags as commandFlags } from '@oclif/command';
 import * as execa from 'execa';
 import { cosmiconfigSync } from 'cosmiconfig';
 import { CONSUMING_ROOT, WEB_SCRIPTS_CONFIG } from '../paths';
 
+const yarnExitCodes = {
+  low: 2,
+  moderate: 4,
+  high: 8,
+  critical: 16,
+};
+
+type AuditLevel = keyof typeof yarnExitCodes;
+
 /**
  * @return report file destination
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const createReport = (stdout: any, path: string, name: string) => {
+const createReport = (stdout: any, reportPath: string, name: string) => {
   const title = 'Vulnerabilities Report';
 
   const getInfoRows = (data: Record<string, number>) =>
@@ -70,11 +80,11 @@ const createReport = (stdout: any, path: string, name: string) => {
   </body>
 </html>`;
 
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path);
+  if (!fs.existsSync(reportPath)) {
+    fs.mkdirSync(reportPath);
   }
 
-  const filePath = `${path}/${name}.html`;
+  const filePath = `${reportPath}/${name}.html`;
 
   fs.writeFileSync(filePath, output);
 
@@ -100,26 +110,52 @@ export class Audit extends Command {
     }
 
     if (configResult) {
-      const { auditFilename, auditLevel, testResultsDestination } = configResult.config;
-
-      const command = ['npm audit', ...(report ? ['--json'] : []), `--audit-level=${auditLevel}`].join(' ');
-
-      this.log(command);
+      const { auditFilename, auditLevel, testResultsDestination } = configResult.config as { [name: string]: string };
+      let provider: {
+        type: 'npm' | 'yarn';
+        command: string;
+      };
 
       try {
-        await execa.command(command);
+        fs.accessSync(path.join(CONSUMING_ROOT, 'package-lock.json'));
+        provider = {
+          type: 'npm',
+          command: ['npm audit', ...(report ? ['--json'] : []), `--audit-level=${auditLevel}`].join(' '),
+        };
+      } catch (errorNPM) {
+        this.warn(`Could not find 'package-lock.json', trying with yarn`);
+
+        provider = {
+          type: 'yarn',
+          command: ['yarn audit', ...(report ? ['--json'] : []), `--level=${auditLevel}`].join(' '),
+        };
+      }
+
+      this.log(provider.command);
+
+      try {
+        await execa.command(provider.command);
         this.log('No vulnerabilities found');
       } catch ({ exitCode, stdout }) {
         if (report) {
-          const filePath = createReport(JSON.parse(stdout), testResultsDestination, auditFilename);
+          if (provider.type === 'npm') {
+            const filePath = createReport(JSON.parse(stdout), testResultsDestination, auditFilename);
+            this.error(`Vulnerabilities found. Report generated at ${filePath}`, {
+              exit: exitCode,
+            });
+          }
 
-          this.error(`Vulnerabilities found. Report generated at ${filePath}`, {
-            exit: exitCode,
-          });
+          if (provider.type === 'yarn') {
+            this.error(`Vulnerabilities found. Report not supported`, {
+              exit: exitCode,
+            });
+          }
         }
 
         this.log(stdout);
-        this.exit(exitCode);
+
+        const yarnExitCode = yarnExitCodes[auditLevel as AuditLevel] <= exitCode ? 1 : 0;
+        this.exit(provider.type === 'npm' ? exitCode : yarnExitCode);
       }
     }
   }
