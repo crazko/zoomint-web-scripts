@@ -1,5 +1,7 @@
 # Common Web Scripts
 
+![Build](https://github.com/crazko/zoomint-web-scripts/workflows/Test%20and%20Build/badge.svg)
+
 Install:
 
 ```sh
