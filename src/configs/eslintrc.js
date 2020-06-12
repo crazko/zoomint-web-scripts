@@ -75,8 +75,6 @@ module.exports = {
     'react/static-property-placement': 'warn',
   },
 
-  // TODO: this has to be overriden in the top level config
-  // Issue: https://github.com/eslint/eslint/issues/11558, https://github.com/eslint/eslint/pull/12887
   overrides: [
     {
       files: ['**/*.tsx'],
